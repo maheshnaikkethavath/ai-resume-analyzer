@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>AI Resume Analyzer</title>
+
+</head>
+
+<body>
+
+<h1>AI Resume Analyzer</h1>
+
+<form id="uploadForm">
+
+<input type="file" name="resume" required>
+
+<button type="submit">Upload Resume</button>
+
+</form>
+
+<h2 id="result"></h2>
+
+<script>
+
+document.getElementById("uploadForm").addEventListener("submit",async function(e){
+
+e.preventDefault();
+
+let formData=new FormData();
+
+let file=document.querySelector("input").files[0];
+
+formData.append("resume",file);
+
+let response=await fetch("http://localhost:5000/upload",{
+
+method:"POST",
+body:formData
+
+});
+
+let data=await response.json();
+
+document.getElementById("result").innerText="Recommended Jobs: "+data.recommended_jobs;
+
+});
+
+</script>
+
+</body>
+</html>
